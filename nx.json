@@ -19,7 +19,12 @@
       "runner": "@nrwl/nx-cloud",
       "options": {
         "accessToken": "MjdjMzRjMmMtYzNmOC00NGIwLTkzNzItN2QwZTAwYjdkN2FjfHJlYWQtd3JpdGU=",
-        "cacheableOperations": ["build", "test", "lint", "e2e"],
+        "cacheableOperations": [
+          "build",
+          "test",
+          "lint",
+          "e2e"
+        ],
         "canTrackAnalytics": false,
         "showUsageWarnings": true
       }
@@ -31,7 +36,9 @@
     },
     "ring-e2e": {
       "tags": [],
-      "implicitDependencies": ["ring"]
+      "implicitDependencies": [
+        "ring"
+      ]
     },
     "ring-api": {
       "tags": []
@@ -41,6 +48,12 @@
     },
     "data": {
       "tags": []
+    },
+    "ui-e2e": {
+      "tags": [],
+      "implicitDependencies": [
+        "ui"
+      ]
     }
   }
 }
