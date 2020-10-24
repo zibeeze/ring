@@ -9,8 +9,7 @@
 
 .component {
   position: relative;
-  margin-bottom: 3em;
-  height: 15em;
+  height: 50%;
   // background: rgba(0, 0, 0, 0.05);
   font-family: 'Lato', Arial, sans-serif;
 }
@@ -130,6 +129,10 @@
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   pointer-events: auto;
+  transition: all 0.5s ease;
+}
+.csstransforms .cn-wrapper li a.selected {
+  transition: all 0s ease;
 }
 
 .csstransforms .cn-wrapper li a span {
@@ -267,5 +270,6 @@
 
 .selected {
   background: #2f6e4a !important;
+  // background: radial-gradient(transparent 33%, #2f6e4a 35%) !important;
   // z-index: 100;
 }

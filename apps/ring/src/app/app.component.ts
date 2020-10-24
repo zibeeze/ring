@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TouchFreeService } from './touch-free/touch-free.service';
 
 @Component({
   selector: 'zander-root',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'ring';
+  constructor(public touchFreeService: TouchFreeService) {}
 }

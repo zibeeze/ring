@@ -21,14 +21,10 @@
             "polyfills": "apps/ring/src/polyfills.ts",
             "tsConfig": "apps/ring/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/ring/src/favicon.ico",
-              "apps/ring/src/assets"
-            ],
-            "styles": [
-              "apps/ring/src/styles.scss"
-            ],
-            "scripts": []
+            "assets": ["apps/ring/src/favicon.ico", "apps/ring/src/assets"],
+            "styles": ["apps/ring/src/styles.scss"],
+            "scripts": [],
+            "allowedCommonJsDependencies": ["socket.io-client"]
           },
           "configurations": {
             "production": {
@@ -82,9 +78,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/ring/src/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/ring/src/**/*.ts"]
           }
         },
         "test": {
@@ -117,9 +111,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/ring-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/ring-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -137,9 +129,7 @@
             "outputPath": "dist/apps/ring-api",
             "main": "apps/ring-api/src/main.ts",
             "tsConfig": "apps/ring-api/tsconfig.app.json",
-            "assets": [
-              "apps/ring-api/src/assets"
-            ]
+            "assets": ["apps/ring-api/src/assets"]
           },
           "configurations": {
             "production": {
@@ -164,9 +154,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/ring-api/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/ring-api/**/*.ts"]
           }
         },
         "test": {
@@ -192,10 +180,7 @@
               "libs/ui/tsconfig.spec.json",
               "libs/ui/.storybook/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/ui/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/ui/**/*"]
           }
         },
         "test": {
@@ -251,9 +236,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/data/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/data/**/*.ts"]
           }
         },
         "test": {
@@ -286,13 +269,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/ui-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/ui-e2e/**/*"
-            ]
+            "tsConfig": ["apps/ui-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/ui-e2e/**/*"]
           }
         }
       }
