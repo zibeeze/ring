@@ -17,7 +17,9 @@
     "baseUrl": ".",
     "paths": {
       "@zander/ui": ["libs/ui/src/index.ts"],
-      "@zander/data": ["libs/data/src/index.ts"]
+      "@zander/data": ["libs/data/src/index.ts"],
+      "@zander/api-lib": ["libs/api-lib/src/index.ts"],
+      "@zander/util": ["libs/util/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

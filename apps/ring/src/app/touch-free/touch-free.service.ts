@@ -13,7 +13,7 @@ export class TouchFreeService {
 
   constructor() {
     this.open = true;
-    this.socket = io(`http://localhost:3333/touch-free`);
+    this.socket = io(`http://localhost:3334/hover`);
     this.setItems([
       { label: 'One' },
       { label: 'Two' },
