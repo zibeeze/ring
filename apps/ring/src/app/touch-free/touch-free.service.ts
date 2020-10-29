@@ -9,10 +9,12 @@ export class TouchFreeService {
   public items: { label: string }[];
   public selectedHash: { [name: number]: number };
   public selectedItem: number;
+  private haveRecievedData: boolean;
   private lastReceivedTime: number;
 
   constructor() {
     this.open = false;
+    this.haveRecievedData = false;
     this.socket = io(`http://localhost:3334/hover`);
     this.setItems([
       { label: 'One' },
@@ -25,12 +27,13 @@ export class TouchFreeService {
       // console.log(data);
       this.selectedItem = this.selectedHash[data.degrees];
       console.log(this.selectedItem);
+      this.haveRecievedData = true;
       this.lastReceivedTime = new Date().getTime();
     });
     this.lastReceivedTime = new Date().getTime();
     setInterval(() => {
       let time = new Date().getTime();
-      if (time - this.lastReceivedTime > 1000) {
+      if (time - this.lastReceivedTime > 1000 || !this.haveRecievedData) {
         this.open = false;
         this.selectedItem = -1;
       } else {
