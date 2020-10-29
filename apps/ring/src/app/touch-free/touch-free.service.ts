@@ -12,7 +12,7 @@ export class TouchFreeService {
   private lastReceivedTime: number;
 
   constructor() {
-    this.open = true;
+    this.open = false;
     this.socket = io(`http://localhost:3334/hover`);
     this.setItems([
       { label: 'One' },
@@ -22,7 +22,9 @@ export class TouchFreeService {
       { label: 'Five' },
     ]);
     this.socket.on('input', (data) => {
-      this.selectedItem = this.selectedHash[data.rad];
+      // console.log(data);
+      this.selectedItem = this.selectedHash[data.degrees];
+      console.log(this.selectedItem);
       this.lastReceivedTime = new Date().getTime();
     });
     this.lastReceivedTime = new Date().getTime();

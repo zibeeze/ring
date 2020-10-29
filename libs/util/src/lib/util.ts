@@ -5,7 +5,8 @@ export const delay = (ms: number) => {
 export const cartToMenu = (x: number, y: number) => {
   let distance = Math.sqrt(x * x + y * y);
   let degrees = Math.atan2(y, x) * (180 / Math.PI); //This takes y first
-  if (degrees - 0) {
+  degrees = Math.floor(degrees);
+  if (degrees < 0) {
     degrees += 360;
   }
   let polarCoor = { distance, degrees };
