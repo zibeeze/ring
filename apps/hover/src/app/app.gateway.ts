@@ -29,6 +29,7 @@ export class AppGateway {
 
       if (position) {
         let menu = cartToMenu(position[0], position[1]);
+        menu['z'] = position[2];
         this.server.emit('input', menu);
       }
       await delay(2);

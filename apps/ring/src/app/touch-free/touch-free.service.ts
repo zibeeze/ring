@@ -6,6 +6,9 @@ import * as io from 'socket.io-client';
 export class TouchFreeService {
   private socket: SocketIOClient.Socket;
   public open: boolean;
+  private opening: boolean;
+  private canRecieveClick: boolean;
+  private z;
   public items: { label: string }[];
   public selectedHash: { [name: number]: number };
   public selectedItem: number;
@@ -15,6 +18,8 @@ export class TouchFreeService {
   constructor() {
     this.open = false;
     this.haveRecievedData = false;
+    this.canRecieveClick = false;
+    this.opening = false;
     this.socket = io(`http://localhost:3334/hover`);
     this.setItems([
       { label: 'One' },
@@ -26,6 +31,11 @@ export class TouchFreeService {
     this.socket.on('input', (data) => {
       // console.log(data);
       this.selectedItem = this.selectedHash[data.degrees];
+      let deltaZ = this.z - data.z;
+      this.z = data.z;
+      if (deltaZ > 50 && this.canRecieveClick) {
+        console.log('clicked');
+      }
       console.log(this.selectedItem);
       this.haveRecievedData = true;
       this.lastReceivedTime = new Date().getTime();
@@ -35,9 +45,19 @@ export class TouchFreeService {
       let time = new Date().getTime();
       if (time - this.lastReceivedTime > 1000 || !this.haveRecievedData) {
         this.open = false;
+        this.canRecieveClick = false;
+        this.opening = false;
         this.selectedItem = -1;
       } else {
         this.open = true;
+        if (this.opening === false) {
+          this.opening = true;
+          setTimeout(() => {
+            if (this.open) {
+              this.canRecieveClick = true;
+            }
+          }, 2000);
+        }
       }
     });
   }
