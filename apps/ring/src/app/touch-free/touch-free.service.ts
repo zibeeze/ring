@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { interval } from 'rxjs';
+import { interval, Subject } from 'rxjs';
 import * as io from 'socket.io-client';
 
 @Injectable()
@@ -8,18 +8,22 @@ export class TouchFreeService {
   public open: boolean;
   private opening: boolean;
   private canRecieveClick: boolean;
+  private clicked: boolean;
   private z;
   public items: { label: string }[];
   public selectedHash: { [name: number]: number };
   public selectedItem: number;
   private haveRecievedData: boolean;
   private lastReceivedTime: number;
+  public onClick: Subject<number>;
 
   constructor() {
     this.open = false;
     this.haveRecievedData = false;
     this.canRecieveClick = false;
+    this.clicked = false;
     this.opening = false;
+    this.onClick = new Subject();
     this.socket = io(`http://localhost:3334/hover`);
     this.setItems([
       { label: 'One' },
@@ -30,13 +34,21 @@ export class TouchFreeService {
     ]);
     this.socket.on('input', (data) => {
       // console.log(data);
-      this.selectedItem = this.selectedHash[data.degrees];
+      if (this.clicked === false) {
+        this.selectedItem = this.selectedHash[data.degrees];
+      }
       let deltaZ = this.z - data.z;
       this.z = data.z;
-      if (deltaZ > 50 && this.canRecieveClick) {
-        console.log('clicked');
+      // console.log(this.z);
+      // console.log(deltaZ);
+      if (deltaZ > 4000 && this.canRecieveClick) {
+        this.onClick.next(this.selectedItem);
+        this.selectedItem = -1;
+        this.open = false;
+        this.canRecieveClick = false;
+        this.clicked = true;
       }
-      console.log(this.selectedItem);
+      // console.log(this.selectedItem);
       this.haveRecievedData = true;
       this.lastReceivedTime = new Date().getTime();
     });
@@ -48,7 +60,8 @@ export class TouchFreeService {
         this.canRecieveClick = false;
         this.opening = false;
         this.selectedItem = -1;
-      } else {
+        this.clicked = false;
+      } else if (this.clicked === false) {
         this.open = true;
         if (this.opening === false) {
           this.opening = true;

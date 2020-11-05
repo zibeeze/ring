@@ -29,7 +29,7 @@ export class AppService {
     // await this.delay(1000);
     this.reset.setDirection('in');
 
-    let autoCal = [
+    const autoCal = [
       0x10,
       0x00,
       0x00,
@@ -57,7 +57,7 @@ export class AppService {
   // }
 
   private getStatus() {
-    let ts = this.ts.readSync();
+    const ts = this.ts.readSync();
     if (ts === 1) {
       return 1;
     } else {
@@ -78,33 +78,30 @@ export class AppService {
 
   public async getPosition() {
     if (this.getStatus) {
-      let event = await this.getEvent();
+      const event = await this.getEvent();
       // this.logit.warn(event);
       this.setRelease();
       return event;
-    }else {
+    } else {
       return false;
     }
   }
 
-  private async getEvent(){
-
-    let busData = Buffer.alloc(26);
+  private async getEvent() {
+    const busData = Buffer.alloc(26);
     await this.connection.i2cRead(this.address, 26, busData);
     // this.logit.warn('BUS DATA: ');
     // this.logit.warn(busData);
-    let positionEvent = (busData[7] & 0x01)
-    if( positionEvent == 1) {
-      let x = ((busData[21] << 8) | busData[20])
-      let y = ((busData[23] << 8) | busData[22])
-      let z = ((busData[25] << 8) | busData[24])
-      x -= 32767
-      y -= 32767
-      z -= 32767
-      return [x,y,z]
-    }
-    else{
-      return false
+    const positionEvent = busData[7] & 0x01;
+    if (positionEvent === 1) {
+      let x = (busData[21] << 8) | busData[20];
+      let y = (busData[23] << 8) | busData[22];
+      const z = (busData[25] << 8) | busData[24];
+      x -= 32767;
+      y -= 32767;
+      return [x, y, z];
+    } else {
+      return false;
     }
   }
 }
